@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useId } from 'react';
 import { cn } from '../../../utils/cn';
 
 export interface CheckboxProps
@@ -28,8 +28,8 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref
   ) => {
-    const checkboxId =
-      id || `checkbox-${Math.random().toString(36).substr(2, 9)}`;
+    const generatedId = useId();
+    const checkboxId = id || `checkbox-${generatedId}`;
     const hasError = variant === 'error' || !!error;
     const hasSuccess = variant === 'success';
 
