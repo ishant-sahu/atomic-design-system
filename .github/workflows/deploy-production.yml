@@ -1,0 +1,70 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [production, main]
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build App for Production
+        run: npm run build:production
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build
+          path: ./dist
+          retention-days: 30
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: ${{ github.event.inputs.environment || 'production' }}
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: production-build
+          path: ./dist
+
+      - name: Deploy to Production
+        run: |
+          echo "Deploying to ${{ github.event.inputs.environment || 'production' }}"
+          echo "Build files are ready in ./dist"
+          echo "Add your deployment logic here (e.g., upload to CDN, deploy to hosting service)"
+
+          # Example deployment commands:
+          # - Upload to AWS S3
+          # - Deploy to Vercel/Netlify
+          # - Deploy to your hosting provider
+
+          # For now, just list the built files
+          ls -la ./dist

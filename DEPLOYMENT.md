@@ -1,6 +1,6 @@
-# GitHub Pages Deployment Guide
+# Dual Deployment Guide
 
-This project is configured to automatically deploy your React app to GitHub Pages whenever you push to the main branch.
+This project is configured to deploy your React app to both GitHub Pages and production environments with different configurations.
 
 ## Setup Instructions
 
@@ -20,12 +20,19 @@ Make sure your repository has the following settings:
 
 ### 3. Workflow Configuration
 
-The GitHub Actions workflow (`.github/workflows/deploy.yml`) is already configured and will:
+**GitHub Pages Deployment** (`.github/workflows/deploy.yml`):
 
 - Trigger on pushes to `main` or `master` branch
-- Build your React app using `npm run build`
-- Deploy the built files to GitHub Pages
-- Use the latest GitHub Actions for optimal performance
+- Builds your React app using `npm run build:github-pages`
+- Deploys to GitHub Pages with base path `/atomic-design-system/`
+- Automatically handles GitHub Pages routing
+
+**Production Deployment** (`.github/workflows/deploy-production.yml`):
+
+- Trigger on pushes to `production` branch or version tags
+- Builds your React app using `npm run build:production`
+- Creates build artifacts for production deployment
+- Can be triggered manually with environment selection
 
 ### 4. Custom Domain (Optional)
 
@@ -37,18 +44,34 @@ If you want to use a custom domain:
 
 ## How It Works
 
-1. **Push to main branch** → Triggers the workflow
-2. **Build phase** → Installs dependencies and builds your React app
+### GitHub Pages Deployment:
+
+1. **Push to main branch** → Triggers GitHub Pages workflow
+2. **Build phase** → Installs dependencies and builds app for GitHub Pages
 3. **Deploy phase** → Uploads built files to GitHub Pages
-4. **Automatic deployment** → Your React app is live at `https://ishant-sahu.github.io/atomic-design-system`
+4. **Result** → Your app is live at `https://ishant-sahu.github.io/atomic-design-system`
+
+### Production Deployment:
+
+1. **Push to production branch or tag** → Triggers production workflow
+2. **Build phase** → Installs dependencies and builds app for production
+3. **Artifact creation** → Build files are uploaded as artifacts
+4. **Deployment** → Add your production deployment logic (CDN, hosting service, etc.)
 
 ## Manual Deployment
 
-If you need to deploy manually:
+### GitHub Pages:
 
 ```bash
-npm run build
+npm run build:github-pages
 # Then manually upload the dist folder to GitHub Pages
+```
+
+### Production:
+
+```bash
+npm run build:production
+# Then deploy the dist folder to your production environment
 ```
 
 ## Troubleshooting
@@ -61,5 +84,11 @@ npm run build
 
 - The workflow uses Node.js 18 for compatibility
 - Your React app is built to the `dist` directory
-- Only pushes to main/master trigger deployment (PRs only build for testing)
-- The workflow includes proper concurrency controls to prevent conflicts
+- **GitHub Pages**: Uses base path `/atomic-design-system/` for proper asset loading
+- **Production**: Uses base path `/` for standard production deployment
+- **Build Scripts**:
+  - `npm run build:github-pages` - For GitHub Pages deployment
+  - `npm run build:production` - For production deployment
+- **Dual Workflows**: Separate workflows for GitHub Pages and production
+- Only pushes to main/master trigger GitHub Pages deployment
+- Production deployment triggers on production branch or version tags
