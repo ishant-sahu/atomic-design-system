@@ -288,6 +288,29 @@ The design system includes comprehensive testing:
 - Edge (latest)
 - IE 11+ (with polyfills)
 
+## 🐳 Docker
+
+The design system can be run using Docker for consistent development and deployment environments.
+
+### Quick Start with Docker
+
+```bash
+# Build the Docker image
+docker build -t atomic-design-system .
+
+# Run the container
+docker run -p 6006:6006 atomic-design-system
+
+# Access Storybook at http://localhost:6006
+```
+
+### Docker Features
+
+- **Multi-stage build** for optimized image size
+- **Non-root user** for security
+- **Port 6006** exposed for Storybook
+- **Production ready** with built assets
+
 ## 🤝 Contributing
 
 1. Fork the repository
