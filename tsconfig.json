@@ -6,10 +6,9 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "noEmit": false,
     "jsx": "react-jsx",
     "strict": true,
     "noUnusedLocals": true,
@@ -24,5 +23,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*", "stories/**/*"],
-  "exclude": ["node_modules", "dist", "storybook-static"]
+  "exclude": ["node_modules", "storybook-static"]
 } 
