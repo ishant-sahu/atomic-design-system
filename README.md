@@ -16,12 +16,16 @@ A comprehensive React-based atomic design system built with TypeScript, Tailwind
 ## 📦 Installation
 
 ```bash
-npm install @your-org/atomic-design-system
+npm install @ishant-sahu/atomic-design-system
 # or
-yarn add @your-org/atomic-design-system
+yarn add @ishant-sahu/atomic-design-system
 ```
 
+**Important**: After installation, you must import the CSS to get the component styles. See the [CSS and Styling](#-css-and-styling) section below.
+
 ## 🎯 Quick Start
+
+### Import Components and CSS
 
 ```tsx
 import {
@@ -29,26 +33,32 @@ import {
   Input,
   Card,
   ThemeProvider,
-} from '@your-org/atomic-design-system';
+} from '@ishant-sahu/atomic-design-system';
+
+// Import the CSS to get all the styles
+import '@ishant-sahu/atomic-design-system/dist/style.css';
+```
 
 function App() {
-  return (
-    <ThemeProvider>
-      <div className="p-6">
-        <Card>
-          <CardHeader>
-            <h1>Welcome to Atomic Design</h1>
-          </CardHeader>
-          <CardBody>
-            <Input label="Name" placeholder="Enter your name" />
-            <Button>Submit</Button>
-          </CardBody>
-        </Card>
-      </div>
-    </ThemeProvider>
-  );
+return (
+<ThemeProvider>
+
+<div className="p-6">
+<Card>
+<CardHeader>
+<h1>Welcome to Atomic Design</h1>
+</CardHeader>
+<CardBody>
+<Input label="Name" placeholder="Enter your name" />
+<Button>Submit</Button>
+</CardBody>
+</Card>
+</div>
+</ThemeProvider>
+);
 }
-```
+
+````
 
 ## 🏗️ Architecture
 
@@ -72,6 +82,53 @@ Complex UI components composed of molecules and atoms:
 
 - **Form**: Complete form components (coming soon)
 - **Navigation**: Header and navigation components (coming soon)
+
+## 🎨 CSS and Styling
+
+### Including CSS
+
+The design system requires its CSS to be imported for proper styling. You have several options:
+
+#### Option 1: Import CSS directly (Recommended)
+```tsx
+import '@ishant-sahu/atomic-design-system/dist/style.css';
+```
+
+#### Option 2: Import in your main entry point
+```tsx
+// In your main.tsx or App.tsx
+import '@ishant-sahu/atomic-design-system/dist/style.css';
+```
+
+#### Option 3: Import in your CSS file
+```css
+/* In your global CSS */
+@import '@ishant-sahu/atomic-design-system/dist/style.css';
+```
+
+### Tailwind CSS Requirements
+
+This design system is built on Tailwind CSS. Make sure your project has Tailwind CSS installed and configured:
+
+```bash
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+```
+
+Update your `tailwind.config.js`:
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@ishant-sahu/atomic-design-system/**/*.{js,ts,jsx,tsx}',
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
 
 ## 🎨 Theming
 
@@ -99,7 +156,7 @@ function ThemeToggle() {
     </select>
   );
 }
-```
+````
 
 ## 📚 Storybook
 

@@ -7,6 +7,9 @@ export * from './theme/ThemeProvider';
 // Export utility functions
 export * from './utils/cn';
 
+// Export CSS for consumers
+import './styles/index.css';
+
 // Export types
 export type { ButtonProps } from './components/atoms/Button';
 export type { InputProps } from './components/atoms/Input';
