@@ -2,6 +2,7 @@
   "name": "@ishant-sahu/atomic-design-system",
   "version": "1.0.4",
   "type": "module",
+  "homepage": "https://ishant-sahu.github.io/atomic-design-system",
   "description": "A React-based atomic design system with custom theming and Tailwind CSS",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
